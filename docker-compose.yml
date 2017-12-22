@@ -1,0 +1,40 @@
+version: '3.3'
+services:
+  mysql:
+    image: mysql:5.7
+    env_file:
+      - .env
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - $PWD/mysql/conf.d:/etc/mysql/conf.d:ro
+      - $PWD/mysql/initdb.d:/docker-entrypoint-initdb.d:ro
+      - $PWD/mysql/log:/var/log/mysql
+      - db-storage:/var/lib/mysql
+    ports:
+      - '3306:3306'
+    networks:
+      - dmaki_link
+  web:
+    image: php-jp
+    build:
+      context: ./php
+      cache_from:
+        - php:7-apache
+    depends_on:
+      - mysql
+    env_file:
+      - .env
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - $PWD/php/log:/var/log/apache2
+      - $PWD/php/conf:/usr/local/etc/php
+      - $PWD/www:/var/www/html
+    ports:
+      - '8080:80'
+    networks:
+      - dmaki_link
+volumes:
+  db-storage:
+networks:
+  dmaki_link:
+    external: true
