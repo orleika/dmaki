@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 from collections import namedtuple
-
 import MeCab
 from janome.tokenizer import Tokenizer
-
 
 class JanomeTokenizer(object):
 
@@ -54,7 +52,7 @@ class MeCabTokenizer(object):
     def extract_noun_verbs_baseform(self, sent):
         results = []
         for token in self.tokenize(sent):
-            if (token.pos == '名詞' or token.pos == '動詞') and token.pos_detail1 != '数':
+            if token.pos == '名詞' and token.pos_detail1 != '数' and token.pos_detail2 != '助数詞':
                 results.append(token)
         return results
 

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from gscrapy import GoogleScrapy
 from clean import Clean
 from stopword import StopWord
@@ -7,8 +8,10 @@ from pprint import pprint
 from itertools import chain
 from db import DB
 
-def search_articles(keyword):
-    google = GoogleScrapy(keyword.word)
+def search_articles(keywords, end = 1):
+    search_word = ' '.join([keyword.word for keyword in keywords])
+    pprint(search_word)
+    google = GoogleScrapy(search_word, end = end)
     google.start()
     return google.articles
 
@@ -40,13 +43,15 @@ def save_new_keywords(db, keyword, tokens):
 
 def main():
     db = DB(host = 'mysql')
-    keywords = db.max_layer()
+    keywords = db.max_layer_words()
     for keyword in keywords:
-        articles = search_articles(keyword)
+        if keyword.layer != 1:
+            articles = search_articles([keyword, db.parent_word(keyword.word)])
+        else:
+            articles = search_articles([keyword])
         tokens = tokenize(articles)
         trimmed_tokens = trimmed_stopwords(db, tokens)
         new_keywords = extract_keywords(keywords, trimmed_tokens)
-        pprint(new_keywords)
         save_new_keywords(db, keyword, new_keywords)
 
 if __name__ == '__main__':

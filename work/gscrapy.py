@@ -73,7 +73,9 @@ class GoogleScrapy:
             self.driver = webdriver.Firefox()
             self.driver.implicitly_wait(self.default_wait)
             self.enter_keyword()
+            # for _ in range(1, self.end):
             self.get_search()
+                # self.next_page()
             self.get_article()
         finally:
             self.driver.quit()

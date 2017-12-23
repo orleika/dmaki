@@ -23,5 +23,6 @@ class StopWord:
             fdist[token.word] += 1
         common_words = {word for word, freq in fdist.items() if freq >= max_freq}
         rare_words = {word for word, freq in fdist.items() if freq <= min_freq}
-        stopwords = common_words.union(rare_words)
+        short_words = {word for word, freq in fdist.items() if len(word) <= 1}
+        stopwords = common_words.union(rare_words).union(short_words)
         return stopwords
