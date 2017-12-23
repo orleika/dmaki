@@ -1,0 +1,152 @@
+html {
+  box-sizing: border-box;
+}
+
+*, *:after, *:before {
+  box-sizing: inherit;
+}
+
+a {
+  color: #3366BB;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a:active, a:hover {
+  outline-width: 0;
+}
+
+.hide {
+  display: none;
+}
+
+.material-icons.md-36 {
+  font-size: 36px;
+}
+
+.material-icons.md-48 {
+  font-size: 48px;
+}
+
+main h2 {
+  margin: 56px 0 0;
+}
+
+.mdc-toolbar__section {
+  height: inherit;
+}
+
+.mdc-toolbar__title {
+  background: no-repeat 0/32px url("../images/ic_chat_white_36px.svg");
+  padding: 2px 0 5px 50px;
+  margin-left: 0;
+  white-space: nowrap;
+}
+
+.mdc-toolbar__row, .page__content, .footer__content {
+  max-width: 1000px;
+  padding-left: 16px;
+  padding-right: 16px;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+}
+
+.progress__bar {
+  max-width: 1000px;
+  padding-left: 16px;
+  padding-right: 16px;
+  box-sizing: border-box;
+}
+
+.page {
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.hero {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-flow: row nowrap;
+  flex-flow: row nowrap;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  height: 70vh;
+  min-height: 360px;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.hero__image {
+  width: 100%;
+  height: 85%;
+}
+
+a.mdc-list-item:hover {
+  text-decoration: none;
+}
+
+.mdc-list-item__start-detail {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background: rgba(0, 0, 0, .26);
+}
+
+.footer {
+  background: #fafafa;
+  height: 80px;
+  margin-top: 100px;
+}
+
+.footer__content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  padding-top: 16px;
+  padding-bottom: 24px;
+  height: 100%;
+  font-size: .875rem;
+}
+
+.footer__links {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.footer__link {
+  color: rgba(0, 0, 0, .54);
+  padding: 8px;
+}
+
+.footer__links>li {
+  margin-left: 24px;
+}
+
+.footer__link-container--right {
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  text-align: right;
+}
