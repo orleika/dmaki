@@ -16,7 +16,7 @@ class StopWord:
         return tokens
 
     @staticmethod
-    def get_stopwords(tokens, max_freq_ratio = 0.05, min_freq = 1):
+    def get_stopwords(tokens, max_freq_ratio = 0.07, min_freq = 1):
         max_freq = len(tokens) * max_freq_ratio
         fdist = Counter()
         for token in tokens:

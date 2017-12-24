@@ -16,24 +16,34 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `dmaki`
+-- Table structure for table `wnet`
 --
 
-DROP TABLE IF EXISTS `dmaki`;
+DROP TABLE IF EXISTS `wnet`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `dmaki` (
+CREATE TABLE `wnet` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `word` text NOT NULL,
+  `word` varchar(255) NOT NULL,
   `layer` tinyint(3) unsigned NOT NULL,
-  `type` tinyint(3) unsigned NOT NULL,
+  `pos` tinyint(3) unsigned NOT NULL,
   `parent_id` int(10) unsigned NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `wnet`
+--
+
+LOCK TABLES `wnet` WRITE;
+/*!40000 ALTER TABLE `wnet` DISABLE KEYS */;
+INSERT INTO `wnet` VALUES (1,'セキュリティ',1,1,1,'2017-12-22 15:31:27','2017-12-22 15:31:27',NULL);
+/*!40000 ALTER TABLE `wnet` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -44,4 +54,4 @@ CREATE TABLE `dmaki` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-12-21 14:09:37
+-- Dump completed on 2017-12-24  8:53:55

@@ -3,12 +3,12 @@
 namespace App\Models;
 
 class Dmaki extends Model {
-    protected $table = 'dmaki';
+    protected $table = 'wnet';
 
     protected $fillable = [
         'word',
         'layer',
-        'type',
+        'pos',
         'parent_id',
     ];
 }

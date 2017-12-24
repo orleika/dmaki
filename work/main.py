@@ -30,10 +30,14 @@ def trimmed_stopwords(db, tokens):
     sw = StopWord(tokens = tokens, stopwords = [stopword.word for stopword in stopwords])
     return sw.remove_stopwords()
 
-def extract_keywords(keywords, tokens):
-    df_list = [keyword.word for keyword in keywords]
-    tfidf = TfIdf(df_list = df_list)
+def extract_keywords(db, tokens):
+    dfs = db.get_dfs()
+    tfidf = TfIdf(dfs)
     return tfidf.new_keywords(tokens)
+
+def update_dfs(db, tokens):
+    for token in tokens:
+        db.save_df(token.word)
 
 def save_new_keywords(db, keyword, tokens):
     for token in tokens:
@@ -46,12 +50,13 @@ def main():
     keywords = db.max_layer_words()
     for keyword in keywords:
         if keyword.layer != 1:
-            articles = search_articles([keyword, db.parent_word(keyword.word)])
+            articles = search_articles([keyword, db.parent_word(keyword.word)], 3)
         else:
-            articles = search_articles([keyword])
+            articles = search_articles([keyword], 3)
         tokens = tokenize(articles)
         trimmed_tokens = trimmed_stopwords(db, tokens)
-        new_keywords = extract_keywords(keywords, trimmed_tokens)
+        new_keywords = extract_keywords(db, trimmed_tokens)
+        update_dfs(db, trimmed_tokens)
         save_new_keywords(db, keyword, new_keywords)
 
 if __name__ == '__main__':

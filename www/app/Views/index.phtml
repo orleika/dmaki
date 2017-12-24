@@ -1,8 +1,7 @@
 <?= $this->partial('../app/Views/layouts/header.phtml'); ?>
 <main class="page">
   <div class="mdc-toolbar-fixed-adjust"></div>
-  <section class="hero" style="height: 100vh;">
-    <div id="network" class="hero__image"></div>
+  <section id="network" class="hero" style="height: 100vh;">
   </section>
   <div class="page__content">
     <section>
@@ -20,7 +19,7 @@
   sigma.parsers.json('/<?= $this->escape($this->appPath); ?>dmaki.json', {
     container: 'network',
     settings: {
-      defaultNodeColor: '#ec5148'
+      defaultNodeColor: '#607D8B'
     }
   });
 </script>

@@ -11,13 +11,11 @@ class Clean:
     def clean_text(self):
         text = self.text
         replaced_text = text.lower()
-        replaced_text = re.sub(r'[【】「」『』]', ' ', replaced_text)
-        replaced_text = re.sub(r'[（）()]', ' ', replaced_text)
-        replaced_text = re.sub(r'[［］\[\]]', ' ', replaced_text)
+        replaced_text = re.sub(r'[【】「」『』−（）()［］\[\]!"#$%&\'=\~\-^\\|{}`+;:*/?_]', ' ', replaced_text)
         replaced_text = re.sub(r'\xa0', ' ', replaced_text)
         replaced_text = re.sub(r'\t', ' ', replaced_text)
         replaced_text = re.sub(r'[@＠]\w+', '', replaced_text)
-        replaced_text = re.sub(r'\d+[年月日]', '', replaced_text)
+        replaced_text = re.sub(r'\d+[年月日時分秒]', '', replaced_text)
         replaced_text = re.sub(r'https?:\/\/.*?[\r\n ]', '', replaced_text)
         replaced_text = re.sub(r'　', ' ', replaced_text)
         replaced_text = re.sub(r' +', ' ', replaced_text)

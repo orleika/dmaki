@@ -15,26 +15,41 @@ class DmakiController extends Controller
     private static function circle_random($layer = 1)
     {
         $c = 100;
+        $r0 = ($layer - 1) * $c;
         $rr = $layer * $c;
         while(true) {
             $x = floor(self::random() * $layer * $c * 2) - $c * $layer;
             $y = floor(self::random() * $layer * $c * 2) - $c * $layer;
             $r = $x * $x + $y * $y;
-            if ($r < $rr * $rr) {
+            if ($r0 * $r0 <= $r && $r < $rr * $rr) {
                 return [$x, $y];
             }
         }
     }
 
+    private static function parent_word($id, $d) {
+        foreach($d as $dd) {
+            if ($d->id === $id) {
+                return $d->word;
+            }
+        }
+    }
+
+    private static function children_words($id, $d)
+    {
+        return array_fillter($d, function($dd) use ($id) {
+            return $d->id === $id;
+        });
+    }
+
     public function index()
     {
         $dmaki = Models\dmaki::all();
-        $nodes = array_map(function($d) {
+        $nodes = array_map(function($d) use ($dmaki) {
             $point = self::circle_random($d->layer);
-
             return [
                 'id' => "n{$d->id}",
-                'label' => $d->word,
+                'label' => "$d->word",
                 'x' => $point[0],
                 'y' => $point[1],
                 'size' => 5 / ($d->layer * 0.5),
