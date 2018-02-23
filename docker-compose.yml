@@ -23,7 +23,6 @@ services:
     volumes:
       - $PWD/mysql/conf.d:/etc/mysql/conf.d:ro
       - $PWD/mysql/initdb.d:/docker-entrypoint-initdb.d:ro
-      - $PWD/mysql/log:/var/log/mysql
       - db-storage:/var/lib/mysql
     ports:
       - '3306:3306'
