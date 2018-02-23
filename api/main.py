@@ -16,7 +16,7 @@ def get_theme(order):
     result = {
         "result": True,
         "data": {
-            "opinions": theme.opinions
+            "opinions": theme
         }
     }
 

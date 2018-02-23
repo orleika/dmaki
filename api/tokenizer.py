@@ -56,11 +56,24 @@ class MeCabTokenizer(object):
                 results.append(token)
         return results
 
+    def extract_verbs_baseform(self, sent):
+        results = []
+        for token in self.tokenize(sent):
+            if token.pos == '動詞':
+                results.append(token)
+        return results
+
     def extract_noun_baseform(self, sent):
         results = []
         for token in self.tokenize(sent):
             if token.pos == '名詞' and token.pos_detail1 != '数' and token.pos_detail2 != '助数詞':
                 results.append(token)
+        return results
+
+    def extract_baseform(self, sent):
+        results = []
+        for token in self.tokenize(sent):
+            results.append(token)
         return results
 
     def tokenize(self, text):

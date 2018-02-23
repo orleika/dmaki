@@ -7,7 +7,7 @@ services:
       cache_from:
         - python:3
     volumes:
-      - $PWD/theme:/work/theme
+      - $PWD/api:/work
     networks:
       - dmaki_link
     command:

@@ -43,6 +43,8 @@ RUN apt update \
     joblib \
     flask \
     requests \
+    chardet \
+    html5lib \
     && cd /usr/local && wget http://ftp.mozilla.org/pub/firefox/releases/59.0b11/linux-x86_64/ja/firefox-59.0b11.tar.bz2 \
     && tar xvjf firefox-59.0b11.tar.bz2 \
     && ln -s /usr/local/firefox/firefox /usr/bin/firefox

@@ -25,7 +25,7 @@ class Clean:
     def clean_html_tags(self):
         soup = BeautifulSoup(self.text, 'html.parser')
         cleaned_text = soup.get_text()
-        cleaned_text = ''.join(cleaned_text.splitlines())
+        # cleaned_text = ''.join(cleaned_text.splitlines())
         self.text = cleaned_text
         return self
 
@@ -33,7 +33,7 @@ class Clean:
         soup = BeautifulSoup(self.text, 'html.parser')
         [x.extract() for x in soup.findAll(['script', 'style'])]
         cleaned_text = soup.get_text()
-        cleaned_text = ''.join(cleaned_text.splitlines())
+        # cleaned_text = ''.join(cleaned_text.splitlines())
         self.text = cleaned_text
         return self
 
@@ -41,6 +41,6 @@ class Clean:
         soup = BeautifulSoup(self.text, 'html.parser')
         [x.extract() for x in soup.findAll(class_="code-frame")]
         cleaned_text = soup.get_text()
-        cleaned_text = ''.join(cleaned_text.splitlines())
+        # cleaned_text = ''.join(cleaned_text.splitlines())
         self.text = cleaned_text
         return self

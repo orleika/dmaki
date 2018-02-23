@@ -16,5 +16,5 @@ class TfIdf:
         return vectorizer.fit_transform(docs)
 
     @staticmethod
-    def cluster(vector):
-        return KMeans(n_clusters=2, random_state=0).fit_predict(vector)
+    def cluster(vector, clusters=3):
+        return KMeans(n_clusters=clusters, random_state=0).fit_predict(vector)
