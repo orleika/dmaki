@@ -4,6 +4,9 @@ from itertools import chain
 from math import log
 from collections import Counter
 from pprint import pprint
+import numpy as np
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.cluster import KMeans
 
 class TfIdf:
     def __init__(self, dfs = []):
@@ -29,3 +32,12 @@ class TfIdf:
         tt = list(set(tokens))
         for token in tt:
             yield keyword(token, self.tfidf(tf[token.word], df[token.word]))
+
+    @staticmethod
+    def vector(docs):
+        vectorizer = TfidfVectorizer(use_idf=True)
+        return vectorizer.fit_transform(docs)
+
+    @staticmethod
+    def cluster(vector):
+        return KMeans(n_clusters=2, random_state=0).fit_predict(vector)

@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 import os
 from collections import namedtuple
-import time
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.keys import Keys
 from pprint import pprint
+from joblib import Parallel, delayed
+import requests
+from bs4 import BeautifulSoup
 
 SearchResultRow = namedtuple(
     'SearchResultRow',
@@ -19,17 +21,10 @@ ArticleResultRow = namedtuple(
 
 os.environ['MOZ_HEADLESS'] = '1'
 
-def get_text_or_none(element, num):
-    try:
-        return element[num].text
-    except IndexError:
-        return ''
-
 class GoogleScrapy:
-    def __init__(self, keyword, end=1, default_wait=1):
+    def __init__(self, keyword, default_wait=1):
         self.url = 'https://www.google.co.jp?pws=0&tbs=qdr:w'
         self.keyword = keyword
-        self.end = end
         self.default_wait = default_wait
         self.driver = None
         self.searches = []
@@ -39,10 +34,6 @@ class GoogleScrapy:
         self.driver.get(self.url)
         self.driver.find_element_by_id('lst-ib').send_keys(self.keyword)
         self.driver.find_element_by_id('lst-ib').send_keys(Keys.RETURN)
-
-    def next_page(self):
-        self.driver.find_element_by_css_selector('a#pnnext').click()
-        time.sleep(self.default_wait)
 
     def get_search(self):
         all_search = self.driver.find_elements_by_class_name('rc')
@@ -58,30 +49,40 @@ class GoogleScrapy:
             result = SearchResultRow(title, url, display_url, dis)
             self.searches.append(result)
 
-    def get_article(self):
-        for search in self.searches:
-            pprint(search.url)
-            self.driver.get(search.url)
-            self.driver.implicitly_wait(self.default_wait)
-            try:
-                pprint('exec')
-                html = self.driver.execute_script("return document.body.innerHTML")
-            except NoSuchElementException:
-                html = ''
-            except:
-                html = ''
-            result = ArticleResultRow(html)
-            self.articles.append(result)
+    # @staticmethod
+    # def get_article(url):
+    #     pprint(url)
+    #     driver = webdriver.Firefox()
+    #     driver.get(url)
+    #     driver.implicitly_wait(1)
+    #     try:
+    #         html = driver.execute_script("return document.body.innerHTML")
+    #     except NoSuchElementException:
+    #         html = ''
+    #     except:
+    #         html = ''
+    #     return html
+    @staticmethod
+    def get_article(url):
+        pprint(url)
+        article = ''
+        resp = requests.get(URL)
+        soup = BeautifulSoup(resp.text, lxml)
+        for comment in soup(text=lambda x: isinstance(x, Comment)):
+            comment.extract()
+        for script in soup.find_all('script', src=False):
+            script.decompose()
+        for text in soup.find_all(text=True):
+            if text.strip():
+                article += text
+        return article
 
     def start(self):
         try:
             self.driver = webdriver.Firefox()
             self.driver.implicitly_wait(self.default_wait)
             self.enter_keyword()
-            # for _ in range(1, self.end):
             self.get_search()
-            pprint([search.url for search in self.searches])
-                # self.next_page()
-            self.get_article()
+            self.articles = Parallel(n_jobs=-1)([delayed(self.get_article)(search.url) for search in self.searches])
         finally:
             self.driver.quit()

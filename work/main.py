@@ -21,7 +21,7 @@ def tokenize(articles):
     for article in articles:
         clean = Clean(article.html)
         cleaned = clean.clean_html_and_js_tags().clean_text().clean_code()
-        tokens = tokenizer.extract_noun_verbs_baseform(cleaned.text)
+        tokens = tokenizer.extract_noun_baseform(cleaned.text)
         results.append(tokens)
     return list(chain.from_iterable(results))
 
